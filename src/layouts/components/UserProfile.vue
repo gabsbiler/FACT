@@ -1,6 +1,6 @@
 <script setup>
-import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
 import avatar1 from '@images/avatars/avatar-1.png'
+import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
 
 const userProfileList = [
   { type: 'divider' },
@@ -9,35 +9,6 @@ const userProfileList = [
     icon: 'ri-user-line',
     title: 'Profile',
     value: 'profile',
-  },
-  {
-    type: 'navItem',
-    icon: 'ri-settings-4-line',
-    title: 'Settings',
-    value: 'settings',
-  },
-  {
-    type: 'navItem',
-    icon: 'ri-file-text-line',
-    title: 'Billing Plan',
-    value: 'billing',
-    badgeProps: {
-      color: 'error',
-      content: '4',
-    },
-  },
-  { type: 'divider' },
-  {
-    type: 'navItem',
-    icon: 'ri-money-dollar-circle-line',
-    title: 'Pricing',
-    value: 'pricing',
-  },
-  {
-    type: 'navItem',
-    icon: 'ri-question-line',
-    title: 'FAQ',
-    value: 'faq',
   },
   { type: 'divider' },
 ]
