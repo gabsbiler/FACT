@@ -4,8 +4,6 @@ import { themeConfig } from '@themeConfig'
 
 import miscMaskDark from '@images/misc/misc-mask-dark.png'
 import miscMaskLight from '@images/misc/misc-mask-light.png'
-import tree1 from '@images/misc/tree1.png'
-import tree3 from '@images/misc/tree3.png'
 
 const authThemeMask = useGenerateImageVariant(miscMaskLight, miscMaskDark)
 
@@ -67,14 +65,9 @@ const isPasswordVisible = ref(false)
                 :append-inner-icon="isPasswordVisible ? 'ri-eye-off-line' : 'ri-eye-line'"
                 @click:append-inner="isPasswordVisible = !isPasswordVisible"
               />
-
-              <div class="d-flex align-center flex-wrap justify-space-between my-5 gap-4">
-                <VCheckbox
-                  v-model="form.remember"
-                  label="Remember me"
-                />
-              </div>
-
+            </VCol>
+            
+            <VCol cols="12">
               <VBtn
                 block
                 type="submit"
@@ -86,35 +79,6 @@ const isPasswordVisible = ref(false)
         </VForm>
       </VCardText>
     </VCard>
-
-    <div class="d-flex gap-x-2 auth-footer-start-tree">
-      <img
-        class="d-none d-md-block"
-        :src="tree3"
-        :height="120"
-        :width="67"
-      >
-      <img
-        class="d-none d-md-block align-self-end"
-        :src="tree3"
-        :height="70"
-        :width="40"
-      >
-    </div>
-
-    <img
-      :src="tree1"
-      class="auth-footer-end-tree d-none d-md-block"
-      :width="97"
-      :height="210"
-    >
-
-    <!-- bg img -->
-    <img
-      class="auth-footer-mask d-none d-md-block"
-      :src="authThemeMask"
-      height="172"
-    >
   </div>
 </template>
 
