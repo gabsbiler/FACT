@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const isDialogOpen = ref(true)
+const isDialogOpen = ref(false)
 
 const formData = ref({
   firstName: null,
@@ -32,11 +32,17 @@ const addFingerprint = () => {
 const removeFingerprint = index => {
   formData.value.fingerprint.splice(index, 1)
 }
+
+const rules = [
+  value => {
+    return !value || !value.length || value[0].size < 2000000 || 'Avatar size should be less than 2 MB!'
+  },
+]
 </script>
 
 <template>
   <div>
-    <VBtn>
+    <VBtn @click="isDialogOpen = !isDialogOpen">
       Add Entry
     </VBtn>
 
@@ -103,6 +109,11 @@ const removeFingerprint = index => {
                     <td>
                       <VFileInput
                         v-model="fingerPrintTemp.file"
+                        :rules="rules"
+                        accept="image/png, image/jpeg, image/bmp"
+                        label="Upload Fingerprint"
+                        placeholder="Upload Fingerprint"
+                        prepend-icon="ri-fingerprint-line"
                         clearable
                       />
                     </td>
@@ -117,8 +128,14 @@ const removeFingerprint = index => {
                 </tbody>
               </VTable>
             </VCol>
-            <VCol cols="12">
-              <VBtn block>
+            <VCol
+              cols="12"
+              class="d-flex gap-x-3 justify-end"
+            >
+              <VBtn @click="isDialogOpen = !isDialogOpen">
+                Cancel
+              </VBtn>
+              <VBtn>
                 Add
               </VBtn>
             </VCol>
