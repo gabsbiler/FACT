@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const header = [
+const loading = ref(false)
+
+const headers = [
   {
     title: "ID",
     key: "id",
@@ -7,6 +9,10 @@ const header = [
   {
     title: "First Name",
     key: "firstName",
+  },
+  {
+    title: "Middle Name",
+    key: "middleName",
   },
   {
     title: "Last Name",
@@ -22,20 +28,35 @@ const header = [
   },
 ]
 
-const data = [
-  { id: 1, firstName: "John", lastName: "Doe", fingerprintCount: 10 },
-  { id: 2, firstName: "Jane", lastName: "Smith", fingerprintCount: 8 },
-  { id: 3, firstName: "Alice", lastName: "Johnson", fingerprintCount: 9 },
-  { id: 4, firstName: "Bob", lastName: "Williams", fingerprintCount: 7 },
-  { id: 5, firstName: "Charlie", lastName: "Brown", fingerprintCount: 5 },
-  { id: 6, firstName: "David", lastName: "Davis", fingerprintCount: 11 },
-  { id: 7, firstName: "Emily", lastName: "Miller", fingerprintCount: 4 },
-  { id: 8, firstName: "Frank", lastName: "Wilson", fingerprintCount: 12 },
-  { id: 9, firstName: "Grace", lastName: "Moore", fingerprintCount: 6 },
-  { id: 10, firstName: "Henry", lastName: "Taylor", fingerprintCount: 10 },
-]
+const tableSettings = ref({
+  itemsPerPage: 10,
+  itemLength: 0,
+  search: '',
+  page: 1,
+})
+
+const data = ref()
 
 const search = ref()
+
+const fetchData = async options => {
+  try{
+    const response = await $api('/items/person', {
+      params: {
+        fields: ['*'],
+        limit: options.itemsPerPage,
+        page: options.page,
+        search: options.search,
+        meta: ['*'],
+      },
+    })
+
+    tableSettings.value.itemLength = response.meta.total_count
+    data.value = response.data
+  }catch(e){
+    console.log(e)
+  }
+}
 </script>
 
 <template>
@@ -55,10 +76,14 @@ const search = ref()
         <AddDatabaseEntryDialog />
       </VCardTitle>
       <VCardText>
-        <VDataTable
-          :headers="header"
+        <VDataTableServer
+          v-model:items-per-page="tableSettings.itemsPerPage"
+          :headers="headers"
           :items="data"
-          :search="search"
+          :items-length="tableSettings.itemLength"
+          :search="tableSettings.search"
+          :loading="loading"
+          @update:options="fetchData"
         >
           <template #item.action>
             <div>
@@ -72,7 +97,7 @@ const search = ref()
               />
             </div>
           </template>
-        </VDataTable>
+        </VDataTableServer>
       </VCardText>
     </VCard>
   </div>

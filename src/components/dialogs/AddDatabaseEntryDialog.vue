@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import AppDateTimePicker from '@/@core/components/app-form-elements/AppDateTimePicker.vue'
+
 const isDialogOpen = ref(false)
 
 const formData = ref({
   firstName: null,
   lastName: null,
+  middleName: null,
   fingerprint: [
     {
       description: "Thumb",
@@ -53,19 +56,52 @@ const rules = [
       >
         <VCardText>
           <VRow>
-            <VCol cols="12">
+            <VCol
+              cols="12"
+              md="4"
+            >
               <VTextField
                 v-model="formData.firstName"
                 label="First Name"
               />
             </VCol>
-            <VCol cols="12">
+            <VCol
+              cols="12"
+              md="4"
+            >
+              <VTextField
+                v-model="formData.middleName"
+                label="Middle Name"
+              />
+            </VCol>
+            <VCol
+              cols="12"
+              md="4"
+            >
               <VTextField
                 v-model="formData.lastName"
                 label="Last Name"
               />
             </VCol>
-            <VCol>
+            <VCol
+              cols="12"
+              md="6"
+            >
+              <AppDateTimePicker
+                v-model="formData.birthdate"
+                label="Birthdate"
+              />
+            </VCol>
+            <VCol
+              cols="12"
+              md="6"
+            >
+              <VTextField
+                v-model="formData.residence"
+                label="Place of Residence"
+              />
+            </VCol>
+            <VCol cols="12">
               <VTable>
                 <thead>
                   <tr>

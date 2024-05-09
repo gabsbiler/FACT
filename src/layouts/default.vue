@@ -3,6 +3,7 @@ import { useConfigStore } from '@core/stores/config'
 import { AppContentLayoutNav } from '@layouts/enums'
 import { switchToVerticalNavOnLtOverlayNavBreakpoint } from '@layouts/utils'
 
+
 const DefaultLayoutWithHorizontalNav = defineAsyncComponent(() => import('./components/DefaultLayoutWithHorizontalNav.vue'))
 const DefaultLayoutWithVerticalNav = defineAsyncComponent(() => import('./components/DefaultLayoutWithVerticalNav.vue'))
 const configStore = useConfigStore()
@@ -15,6 +16,13 @@ switchToVerticalNavOnLtOverlayNavBreakpoint()
 const { layoutAttrs, injectSkinClasses } = useSkins()
 
 injectSkinClasses()
+
+const router = useRouter()
+
+
+if(!(sessionStorage.getItem('accessToken'))){
+  router.push('/login')
+}
 </script>
 
 <template>
