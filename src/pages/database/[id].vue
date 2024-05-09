@@ -158,14 +158,11 @@ onMounted(()=>{
               md="4"
               sm="6"
             >
-              <VCard
-                class="text-center"
-                style="position: relative;"
-              >
+              <VCard class="text-center">
                 <VImg
                   :src="`https://apifact.gabsbiler.com/assets/${value.image}`"
-                  width="10rem"
                   height="15rem"
+                  cover
                 />
                 <!-- style="position: absolute; z-index: 10; inset-block-start: .5rem; inset-inline-end: .5rem" -->
                 <div class="d-flex justify-space-between ps-3 pe-2 pb-1">

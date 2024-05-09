@@ -21,32 +21,56 @@ const fingerPrintTemp = ref({
   file: null,
 })
 
-const addFingerprint = async () => {
+const enhance = async () => {
   fingerprintUploading.value = true
-  try{
-    const file = new FormData()
 
-    file.append('folder', '008b8a66-ea48-49d5-a1df-3db69b96da54')
-    file.append('file', fingerPrintTemp.value.file[0])
-    console.log(fingerPrintTemp.value.file[0])
+  const fileData = new FormData()
 
-    const  response  = await $api('/files', {
+  fileData.append('image', fingerPrintTemp.value.file[0])
+
+  try {
+    const response = await $api('http://20.205.137.176:5000/enhance', {
       method: 'POST',
-      body: file,
+      body: fileData,
+    })
+
+    const blob = await response
+    const enhancedFile = new File([response], 'enhanced_fingerprint.png', { type: 'image/png' })
+
+    console.log(enhancedFile)
+
+    // Now upload the enhanced file
+    await uploadEnhancedImage(enhancedFile)
+  } catch (e) {
+    console.error('Error enhancing image:', e)
+  } finally {
+    fingerprintUploading.value = false
+  }
+}
+
+const uploadEnhancedImage = async enhancedFile => {
+  const uploadData = new FormData()
+
+  uploadData.append('folder', '008b8a66-ea48-49d5-a1df-3db69b96da54')
+  uploadData.append('file', enhancedFile)
+
+  try {
+    const response = await $api('/files', {
+      method: 'POST',
+      body: uploadData,
     })
 
     formData.value.fingerprint.push({
       description: fingerPrintTemp.value.description,
       file: response.data,
     })
-  }catch(e){
-    console.log("Error Uploading File: ", e)
-  }finally{
+
     fingerPrintTemp.value = {
       description: null,
       file: null,
     }
-    fingerprintUploading.value = false
+  } catch (e) {
+    console.error('Error uploading file:', e)
   }
 }
 
@@ -222,7 +246,7 @@ const addPersonToDatabase = async () => {
                       icon="ri-add-circle-line"
                       variant="text"
                       :loading="fingerprintUploading"
-                      @click="addFingerprint"
+                      @click="enhance"
                     />
                   </td>
                 </tr>
