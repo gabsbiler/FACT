@@ -11,4 +11,14 @@ export const $api = ofetch.create({
       }
     }
   },
+  
+  async onResponseError({ response }) {
+    if (response.status === 401) {
+      console.log("Unauthorized, redirecting to login...")
+      sessionStorage.clear()
+
+      // Redirect to the login page using window.location
+      window.location.href = '/login'
+    }
+  },
 })

@@ -44,10 +44,12 @@ const fetchData = async options => {
     const response = await $api('/items/person', {
       params: {
         fields: ['*'],
+        sort: "-date_created",
         limit: options.itemsPerPage,
         page: options.page,
         search: options.search,
         meta: ['*'],
+       
       },
     })
 
@@ -55,6 +57,21 @@ const fetchData = async options => {
     data.value = response.data
   }catch(e){
     console.log(e)
+  }
+}
+
+const deletePerson = async id => {
+  deleteLoading.value = true
+  try{
+    await $api(`/items/person/${id}`, {
+      method: "DELETE",
+    })
+
+    router.push('/database')
+  }catch(e){
+    console.log(e)
+  }finally{
+    deleteLoading.value = false
   }
 }
 </script>
@@ -68,16 +85,18 @@ const fetchData = async options => {
         </div>
         <VSpacer />
         <VTextField
-          v-model="search"
+          v-model="tableSettings.search"
           label="Search"
           style="max-inline-size: 15rem;"
           class="me-3"
         />
-        <AddDatabaseEntryDialog />
+        <VBtn to="/database/add">
+          Add Entry
+        </VBtn>
       </VCardTitle>
       <VCardText>
         <VDataTableServer
-          v-model:items-per-page="tableSettings.itemsPerPage"
+          :items-per-page="tableSettings.itemsPerPage"
           :headers="headers"
           :items="data"
           :items-length="tableSettings.itemLength"
@@ -85,15 +104,20 @@ const fetchData = async options => {
           :loading="loading"
           @update:options="fetchData"
         >
-          <template #item.action>
+          <template #item.fingerprintCount="{item}">
+            {{ item.fingerprints.length }}
+          </template>
+          <template #item.action="{item}">
             <div>
               <VBtn
                 icon="ri-eye-line"
                 variant="text"
+                :to="`/database/${item.id}`"
               />
               <VBtn
                 icon="ri-delete-bin-line"
                 variant="text"
+                @click="deletePerson(item.id)"
               />
             </div>
           </template>

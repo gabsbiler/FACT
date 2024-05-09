@@ -5,11 +5,6 @@ export default [
     icon: { icon: 'ri-home-smile-line' },
   },
   {
-    title: 'Match',
-    to: { name: 'match' },
-    icon: { icon: 'ri-arrow-left-right-line' },
-  },
-  {
     title: 'Analyze',
     to: { name: 'analyze' },
     icon: { icon: 'ri-search-eye-line' },

@@ -1,6 +1,6 @@
 <script setup>
-import avatar1 from '@images/avatars/avatar-1.png';
-import { PerfectScrollbar } from 'vue3-perfect-scrollbar';
+import avatar1 from '@images/avatars/avatar-1.png'
+import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
 
 const userProfileList = [
   { type: 'divider' },
@@ -23,9 +23,13 @@ const logout = async () => {
         refresh_token: sessionStorage.getItem('refreshToken'),
       },
     })
+
+    sessionStorage.clear()
     router.push('/login')
 
   }catch(e){
+    sessionStorage.clear()
+    router.push('/login')
     console.log("Error logging out: ", e)
   }
 }
