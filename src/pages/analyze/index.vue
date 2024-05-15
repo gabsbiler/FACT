@@ -73,7 +73,7 @@ const analyze = async () => {
                   <VBtn :to="`/database/${value.personId}`">
                     Show Person
                   </VBtn>
-                  <VBtn disbaled>
+                  <VBtn disabled>
                     Compare
                   </VBtn>
                 </VCardActions>
