@@ -353,6 +353,8 @@
     "watchWithFilter": true,
     "whenever": true,
     "client": true,
-    "getCurrentUser": true
+    "getCurrentUser": true,
+    "match": true,
+    "matchToAll": true
   }
 }
