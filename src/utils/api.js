@@ -1,7 +1,7 @@
 import { ofetch } from 'ofetch'
 
 export const $api = ofetch.create({
-  baseURL: 'https://apifact.gabsbiler.com',
+  baseURL: 'http://20.205.137.176:8055',
   async onRequest({ options }) {
     const accessToken = sessionStorage.getItem('accessToken')
     if (accessToken) {

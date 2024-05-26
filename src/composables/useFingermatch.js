@@ -35,7 +35,7 @@ const enhanceFingerprint = async fingerprintFile => {
   formData.append('image', fingerprintFile)
 
   try {
-    const response = await fetch('https://factenhance.gabsbiler.com/enhance', {
+    const response = await fetch('http://20.205.137.176:5000/enhance', {
       method: 'POST',
       body: formData,
     })
