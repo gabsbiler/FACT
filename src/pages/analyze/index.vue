@@ -5,6 +5,8 @@ import { ref } from 'vue'
 const file = ref(null)
 const LoadingRef = ref(null)
 const result = ref([])
+const CompareDialogRef = ref(null)
+const enhanceImage = ref(null)
 
 const analyze = async () => {
   LoadingRef.value.triggerDialog(true)
@@ -15,7 +17,11 @@ const analyze = async () => {
   
   const response = await matchToAll(fileData)
 
-  result.value = response
+  const responseResult = response.results
+
+  enhanceImage.value = response.enhancedFingerprint
+
+  result.value = responseResult
     .sort((a, b) => b.result.match_score - a.result.match_score)
     .slice(0, 10)
   LoadingRef.value.triggerDialog(false)
@@ -73,7 +79,7 @@ const analyze = async () => {
                   <VBtn :to="`/database/${value.personId}`">
                     Show Person
                   </VBtn>
-                  <VBtn disabled>
+                  <VBtn @click="CompareDialogRef.openDialog(enhanceImage, value.response)">
                     Compare
                   </VBtn>
                 </VCardActions>
@@ -90,6 +96,8 @@ const analyze = async () => {
           Upload Fingerprint Image to Analyze
         </div>
 
+        
+        <CompareDialog ref="CompareDialogRef" />
         <Loading ref="LoadingRef" />
       </VCardText>
     </VCard> 

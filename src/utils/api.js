@@ -1,7 +1,7 @@
 import { ofetch } from 'ofetch'
 
 export const $api = ofetch.create({
-  baseURL: 'http://20.205.137.176:8055',
+  baseURL: 'https://factbackend.potranscorp.com',
   async onRequest({ options }) {
     const accessToken = sessionStorage.getItem('accessToken')
     if (accessToken) {

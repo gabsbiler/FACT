@@ -90,5 +90,5 @@ export const matchToAll = async fingerprintFile => {
     }
   }
 
-  return results
+  return { results: results, enhancedFingerprint: enhancedFingerprint }
 }
