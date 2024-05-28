@@ -74,7 +74,7 @@ defineExpose({
 <template>
   <div>
     <VDialog v-model="isDialogOpen">
-      <VCard>
+      <VCard class="mx-auto">
         <VCardTitle>
           <div class="text-h5 mt-2">
             Compare Fingerprint
@@ -89,8 +89,8 @@ defineExpose({
               <VImg
                 :src="fingerprint1"
                 style="border-radius: 1rem;"
-                max-width="30rem"
-                max-height="35rem"
+                min-width="30rem"
+                min-height="35rem"
                 cover
                 class="mx-auto"
               />
@@ -102,8 +102,8 @@ defineExpose({
               <VImg
                 :src="fingerprint2"
                 style="border-radius: 1rem;"
-                max-width="30rem"
-                max-height="35rem"
+                min-width="30rem"
+                min-height="35rem"
                 cover
                 class="mx-auto"
               />
