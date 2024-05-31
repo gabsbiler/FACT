@@ -12,8 +12,8 @@ const router = useRouter()
 const loading = ref(false)
 
 const form = ref({
-  email: 'admin@admin.com',
-  password: '@Dm1n@Dm1n',
+  email: '',
+  password: '',
 })
 
 const errorMessage = ref('')

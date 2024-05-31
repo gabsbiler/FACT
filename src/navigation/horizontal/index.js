@@ -1,9 +1,5 @@
 export default [
-  {
-    title: 'Home',
-    to: { name: 'root' },
-    icon: { icon: 'ri-home-smile-line' },
-  },
+
   {
     title: 'Analyze',
     to: { name: 'analyze' },
