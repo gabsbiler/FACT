@@ -14,6 +14,7 @@ const userProfileList = [
 ]
 
 const router = useRouter()
+const currentUser = ref(null)
 
 const logout = async () => {
   try{
@@ -33,6 +34,24 @@ const logout = async () => {
     console.log("Error logging out: ", e)
   }
 }
+
+const fetchUser = async () => {
+  try{
+    const response = await $api('/users/me', {
+      method: 'GET',
+    })
+
+    console.log(response)
+
+    currentUser.value = response.data
+  }catch(e){
+    console.log("Error fetching user: ", e)
+  }
+}
+
+onMounted(() => {
+  fetchUser()
+})
 </script>
 
 <template>
@@ -79,8 +98,11 @@ const logout = async () => {
               </VListItemAction>
             </template>
 
-            <h6 class="text-sm font-weight-medium">
-              John Doe
+            <h6
+              v-if="currentUser"
+              class="text-sm font-weight-medium"
+            >
+              {{ currentUser.first_name }} {{ currentUser.last_name }}
             </h6>
             <VListItemSubtitle class="text-capitalize text-disabled">
               Admin
